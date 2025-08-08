@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإجازات المرضية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fbfc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin: 20px 0;
+            color: #003B77;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #606060;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            flex-grow: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            color: #606060;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #003B77;
+            box-shadow: 0 0 5px rgba(0, 59, 119, 0.5);
+            outline: none;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #002b5e;
+        }
+
+        .result {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 18px;
+            color: #000000;
+            
+        }
+
+        .result .field {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: auto;
+            background-color: #0056b3;
+            color: white;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="data:image/jpeg;base64,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"alt="" width="450" height="100" />
+    <!-- المحتوى الرئيسي -->
+    <div class="header">
+        <h1>الإجازات المرضية</h1>
+        <p>خدمة الاستعلام عن الإجازات المرضية تتيح لك الاستعلام عن حالة طلبك للإجازة ويمكنك طباعتها عن طريق تطبيق صحتي</p>
+    </div>
+
+    <div class="container">
+        <div id="form-section">
+            <div class="form-group">
+                <input type="text" id="service-code" placeholder="رمز الخدمة">
+            </div>
+            <div class="form-group">
+                <input type="text" id="id-number" placeholder="رقم الهوية / الإقامة">
+            </div>
+            <button class="btn" onclick="submitQuery()">استعلام</button>
+        </div>
+
+        <div id="result-section" class="result" style="display: none;">
+            <div class="field">الاسم</div>
+            <div id="name"></div>
+            <div class="field">تاريخ إصدار التقرير</div>
+            <div id="issue-date"></div>
+            <div class="field">تبدأ</div>
+            <div id="start-date"></div>
+            <div class="field">وحتي</div>
+            <div id="end-date"></div>
+            <div class="field">المده بالايام:</div>
+            <div id="no-days"></div>
+            <div class="field">الطبيب المعالج</div>
+            <div id="doctor"></div>
+            <div class="field">المسمى الوظيفي</div>
+            <div id="job-title"></div>
+            <button class="btn" onclick="resetForm()">استعلام جديد</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>منصة صحة معتمدة من قبل وزارة الصحة &copy; 2025</p>
+        <p>الرئيسية / الأسئلة الشائعة / تواصل معنا</p>
+        <p>920002005 | support@seha.sa</p>
+    </div>
+
+    <script>
+        function submitQuery() {
+            const serviceCode = document.getElementById('service-code').value;
+            const idNumber = document.getElementById('id-number').value;
+
+            // التحقق من المدخلات
+            if (serviceCode === "12345" && idNumber === "67890") {
+                // عرض النتائج
+                document.getElementById('form-section').style.display = 'none';
+                document.getElementById('result-section').style.display = 'block';
+
+                // ملء البيانات
+                document.getElementById('name').textContent = " مامون";
+                document.getElementById('issue-date').textContent = "1-1-2025";
+                document.getElementById('start-date').textContent = "1-1-2025";
+                document.getElementById('end-date').textContent = "1-1-2025";
+                document.getElementById('no-days').textContent = "1";
+                document.getElementById('doctor').textContent = "احمدالنقيب";
+                document.getElementById('job-title').textContent = "طبيب عام";
+            } else {
+                alert("البيانات المدخلة غير صحيحة.");
+            }
+        }
+
+        function resetForm() {
+            // إعادة تعيين الحقول
+            document.getElementById('form-section').style.display = 'block';
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('service-code').value = '';
+            document.getElementById('id-number').value = '';
+        }
+    </script>
+</body>
+    </html>
